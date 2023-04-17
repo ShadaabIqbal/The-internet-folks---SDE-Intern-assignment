@@ -18,6 +18,10 @@ const memberSchema = new mongoose.Schema({
         type: String,
         ref: 'role',
         required: true
+    },
+    isModerator: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 

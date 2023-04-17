@@ -121,11 +121,21 @@ const removeMember = async function (req, res) {
         let decodedToken = req.decodedToken;
         let userId = decodedToken.userId;
 
+        let isMod = await memberModel.find({ user: userId });
+        for (let i = 0; i < isMod.length; i++) {
+            if (isMod[i].community === memberCommunity && isMod[i].isModerator === true) {
+                await memberModel.deleteOne({ id: memberId });
+                await roleModel.deleteOne({ id: memberDetails.role })
+                return res.status(200).send({ status: true })
+            }
+        }
+
         if (communityData.owner !== userId) {
             return res.status(403).send({ status: false, message: 'NOT_ALLOWED_ACCESS' });
         }
 
         await memberModel.deleteOne({ id: memberId });
+        await roleModel.deleteOne({ id: memberDetails.role })
 
         return res.status(200).send({ status: true });
     } catch (error) {
