@@ -6,7 +6,7 @@ require('dotenv').config();
 
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true }, mongoose.set('strictQuery', false))
+mongoose.connect('mongodb+srv://ShadaabIqbal:tX5n1spRVfR4YJOc@mycluster.cuj3crc.mongodb.net/ShadaabIqbal-DB?retryWrites=true&w=majority', { useNewUrlParser: true }, mongoose.set('strictQuery', false))
     .then(function () { console.log('mongoDB is connected') })
     .catch(function (error) { console.log(error) })
 
